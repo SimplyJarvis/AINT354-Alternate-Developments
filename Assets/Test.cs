@@ -10,6 +10,8 @@ public class Test : MonoBehaviour {
     private LinkedList<GameObject> messages = new LinkedList<GameObject>();
     public int maxMessages = 100;
     public Text test;
+    public Text test2;
+    private bool notWon = false;
 
     // Use this for initialization
     void Start () {
@@ -37,8 +39,16 @@ public class Test : MonoBehaviour {
             Destroy(messages.First.Value);
             messages.RemoveFirst();
         }
-
-        test.text = user;
+        if (user == "simply_jarvis" & msgString == "!start")
+        {
+            test.enabled = true;
+            test2.text = "Type now!!!";
+        }
+        if (msgString == "Bibble, this word makes no sense" & notWon == false){
+            test2.text = "Winner: " + user;
+            notWon = true;
+        }
+        //test.text = user;
         Debug.Log(user + " : " + msgString);
 
         ////add new message.
