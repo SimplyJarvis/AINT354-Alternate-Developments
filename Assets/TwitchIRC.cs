@@ -8,7 +8,7 @@ public class TwitchIRC : MonoBehaviour
     public string nickName;
     public string channelName;
     private string server = "irc.twitch.tv";
-    private int port = 6667;
+    private int port = 80;
 
     //event(buffer).
     public class MsgEvent : UnityEngine.Events.UnityEvent<string> { }
