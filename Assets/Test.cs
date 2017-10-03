@@ -44,7 +44,8 @@ public class Test : MonoBehaviour {
             test.enabled = true;
             test2.text = "Type now!!!";
         }
-        if (msgString == "Bibble, this word makes no sense" & notWon == false){
+        if (msgString == test.text.Substring(6) & notWon == false & test.enabled == true)
+        {
             test2.text = "Winner: " + user;
             notWon = true;
         }
