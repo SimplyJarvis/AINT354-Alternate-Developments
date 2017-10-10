@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using System.IO;
 
 [RequireComponent(typeof(TwitchIRC))]
 public class Test : MonoBehaviour {
@@ -13,6 +14,7 @@ public class Test : MonoBehaviour {
     public Text test2;
     private bool notWon = false;
     public GameObject boxey;
+    private string[] textFile;
 
     // Use this for initialization
     void Start () {
@@ -41,15 +43,20 @@ public class Test : MonoBehaviour {
             messages.RemoveFirst();
         }
         //text game
-        if (user == "simply_jarvis" & msgString == "!start")
+        if (msgString == "start")
         {
             test.enabled = true;
             test2.text = "Type now!!!";
+            var sr = File.OpenText("Assets/Games_Scripts/Phrases.txt");
+            textFile = sr.ReadToEnd().Split("\n"[0]);
+            test2.text = textFile[1];
         }
         if (msgString == "Bibble, this word makes no sense" & notWon == false){
             test2.text = "Winner: " + user;
             notWon = true;
         }
+        
+
         //end text game
 
         //move cube
