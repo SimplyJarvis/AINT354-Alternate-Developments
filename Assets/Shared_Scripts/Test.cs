@@ -15,6 +15,7 @@ public class Test : MonoBehaviour {
     private bool notWon = false;
     public GameObject boxey;
     private string[] textFile;
+    private int randomNum;
 
     // Use this for initialization
     void Start () {
@@ -43,15 +44,16 @@ public class Test : MonoBehaviour {
             messages.RemoveFirst();
         }
         //text game
-        if (msgString == "start")
+        if (msgString == "start" )
         {
             test.enabled = true;
-            test2.text = "Type now!!!";
             var sr = File.OpenText("Assets/Games_Scripts/Phrases.txt");
             textFile = sr.ReadToEnd().Split("\n"[0]);
-            test2.text = textFile[1];
+            randomNum = Random.Range(0,textFile.Length);
+            test.text = textFile[randomNum];
         }
-        if (msgString == "Bibble, this word makes no sense" & notWon == false){
+        if (msgString.Contains(test.text)){
+            Debug.Log("----------------------------");
             test2.text = "Winner: " + user;
             notWon = true;
         }
@@ -96,6 +98,8 @@ public class Test : MonoBehaviour {
         //test.text = user;
 
         Debug.Log(user + " : " + msgString);
+        Debug.Log(msgString);
+        Debug.Log(test.text);
 
         ////add new message.
         //CreateUIMessage(user, msgString);
