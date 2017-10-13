@@ -52,7 +52,7 @@ public class Test : MonoBehaviour {
             randomNum = Random.Range(0,textFile.Length);
             test.text = textFile[randomNum].Substring(0, textFile[randomNum].Length - 1);
         }
-        if (msgString.ToLower().Contains(test.text.ToLower())){
+        if (msgString.ToLower().Contains(test.text.ToLower()) & notWon == false){
             Debug.Log("----------------------------");
             test2.text = "Winner: " + user;
             notWon = true;
