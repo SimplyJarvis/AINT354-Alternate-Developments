@@ -50,9 +50,9 @@ public class Test : MonoBehaviour {
             var sr = File.OpenText("Assets/Games_Scripts/Phrases.txt");
             textFile = sr.ReadToEnd().Split("\n"[0]);
             randomNum = Random.Range(0,textFile.Length);
-            test.text = textFile[randomNum];
+            test.text = textFile[randomNum].Substring(0, textFile[randomNum].Length - 1);
         }
-        if (msgString.Contains(test.text)){
+        if (msgString.ToLower().Contains(test.text.ToLower())){
             Debug.Log("----------------------------");
             test2.text = "Winner: " + user;
             notWon = true;
