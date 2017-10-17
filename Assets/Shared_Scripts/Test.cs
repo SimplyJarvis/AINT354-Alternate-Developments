@@ -47,7 +47,7 @@ public class Test : MonoBehaviour {
         //text game
         if (msgString == "start" )
         {
-            test.enabled = true;
+           // test.enabled = true;
             var sr = File.OpenText("Assets/Games_Scripts/Phrases.txt");
             textFile = sr.ReadToEnd().Split("\n"[0]);
             randomNum = Random.Range(0,textFile.Length);
@@ -59,6 +59,7 @@ public class Test : MonoBehaviour {
             Debug.Log("----------------------------");
             test2.text = "Winner: " + user;
             notWon = true;
+            Fancytext1.SetText(test2.text);
         }
         
 
