@@ -5,7 +5,7 @@ using UnityEngine.UI;
 using System.IO;
 using TMPro;
 
-[RequireComponent(typeof(TwitchIRC))]
+
 public class Test : MonoBehaviour {
 
     private TwitchIRC IRC;
