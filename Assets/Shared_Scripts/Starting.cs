@@ -6,8 +6,8 @@ using UnityEngine.UI;
 public class Starting : MonoBehaviour {
 
     public GameObject loading;
-    public GameObject textBoxActive;
-    public InputField textBox;
+    public InputField textBoxOauth;
+    public InputField textBoxUser;
     public GameObject button;
 
 	// Use this for initialization
@@ -21,9 +21,9 @@ public class Starting : MonoBehaviour {
 
     public void IsPushed()
     {
-        loading.GetComponent<TwitchIRC>().oauth = textBox.text;
+        loading.GetComponent<TwitchIRC>().oauth = textBoxOauth.text;
+        loading.GetComponent<TwitchIRC>().channelName = textBoxUser.text;
         loading.SetActive(true);
-        textBoxActive.SetActive(false);
         button.SetActive(false);
     }
 }
