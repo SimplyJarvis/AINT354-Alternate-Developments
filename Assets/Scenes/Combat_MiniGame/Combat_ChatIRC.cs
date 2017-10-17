@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(TwitchIRC))]
+
 public class Combat_ChatIRC : MonoBehaviour {
 
     private TwitchIRC IRC;
@@ -11,17 +11,37 @@ public class Combat_ChatIRC : MonoBehaviour {
     private bool StartingPhase = true;
     [SerializeField]
     private GameObject playerPrefab;
-    private string[] CurrentPlayers;
+    private string[] CurrentPlayers = new string[10];
+    private GameObject[] Players = new GameObject[10];
+    private float startTimer = 10f;
+    private bool Initialized = false;
+
 
     // Use this for initialization
     void Start () {
-		
-	}
+        IRC = this.GetComponent<TwitchIRC>();
+        //IRC.SendCommand("CAP REQ :twitch.tv/tags"); //register for additional data such as emote-ids, name color etc.
+        IRC.messageRecievedEvent.AddListener(OnChatMsgRecieved);
+        
+    }
 	
 	// Update is called once per frame
 	void Update () {
-		
-	}
+        if (startTimer >= 0)
+        {
+            startTimer -= Time.deltaTime;
+        }
+        else
+        {
+            if (Initialized == false)
+            {
+                InitializePlayers();
+                Initialized = true;
+            }
+        }
+
+ 
+    }
 
     void OnChatMsgRecieved(string msg)
     {
@@ -37,10 +57,54 @@ public class Combat_ChatIRC : MonoBehaviour {
             messages.RemoveFirst();
         }
 
+        //STARTING PHASE (FINDS PLAYERS)
         if (StartingPhase == true)
         {
 
+            if (CurrentPlayers[CurrentPlayers.Length - 1] == null)
+            {
+
+                bool nameCheck = false;
+                for (int i = 0; i < CurrentPlayers.Length; i++)
+                {
+                    if (user == CurrentPlayers[i])
+                    {
+                        nameCheck = true;
+                    }
+                }
+
+                if (!nameCheck)
+                {
+                    for (int i = 0; i < CurrentPlayers.Length; i++)
+                    {
+                        if (CurrentPlayers[i] == null)
+                        {
+                            CurrentPlayers[i] = user;
+                            break;
+                        }
+                    }
+                }
+            }
+
+            for (int i = 0; i < CurrentPlayers.Length; i++)
+            {
+                Debug.Log(CurrentPlayers[i]);
+            }
         }
 
+      
+    
+    }
+
+    //INITIALIZE PLAYERS
+    void InitializePlayers()
+    {
+        for (int i = 0; i < CurrentPlayers.Length; i++)
+        {
+            if (CurrentPlayers[i] != null)
+            {
+                Players[i] = Instantiate(playerPrefab, new Vector3(Random.Range(-8f, 8f), 0, Random.Range(-4f, 4f)), Quaternion.identity);
+            }
+        }
     }
 }
