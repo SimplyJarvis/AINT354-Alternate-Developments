@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using System.IO;
+using TMPro;
 
 [RequireComponent(typeof(TwitchIRC))]
 public class Test : MonoBehaviour {
@@ -12,6 +13,7 @@ public class Test : MonoBehaviour {
     public int maxMessages = 100;
     public Text test;
     public Text test2;
+    public TextMeshProUGUI Fancytext1;
     private bool notWon = false;
     private string[] textFile;
     private int randomNum;
@@ -50,6 +52,8 @@ public class Test : MonoBehaviour {
             textFile = sr.ReadToEnd().Split("\n"[0]);
             randomNum = Random.Range(0,textFile.Length);
             test.text = textFile[randomNum].Substring(0, textFile[randomNum].Length - 1);
+            TextMeshPro fancytext1 = GetComponent<TextMeshPro>();
+            fancytext1.SetText(test.text);
         }
         if (msgString.ToLower().Contains(test.text.ToLower()) & notWon == false){
             Debug.Log("----------------------------");
