@@ -23,7 +23,7 @@ public class Starting : MonoBehaviour {
     public void IsPushed()
     {
         loading.GetComponent<TwitchIRC>().oauth = textBoxOauth.text;
-        loading.GetComponent<TwitchIRC>().channelName = textBoxUser.text;
+        loading.GetComponent<TwitchIRC>().channelName = textBoxUser.text.ToLower();
         loading.SetActive(true);
         SceneManager.LoadScene("MainTest");
     }
