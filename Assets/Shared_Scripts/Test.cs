@@ -13,7 +13,6 @@ public class Test : MonoBehaviour {
     public Text test;
     public Text test2;
     private bool notWon = false;
-    public GameObject boxey;
     private string[] textFile;
     private int randomNum;
 
@@ -59,41 +58,41 @@ public class Test : MonoBehaviour {
         }
         
 
-        //end text game
+        ////end text game
 
-        //move cube
-        if (msgString == "Move left")
-        {
-            Vector3 position = boxey.transform.position;
-            position.x += -1;
-            boxey.transform.position = position;
-        }
-        else if (msgString == "Move right")
-        {
-            Vector3 position = boxey.transform.position;
-            position.x += 1;
-            boxey.transform.position = position;
-        }
-        else if (msgString == "Move down")
-        {
-            Vector3 position = boxey.transform.position;
-            position.y += -1;
-            boxey.transform.position = position;
-        }
-        else if (msgString == "Move up")
-        {
-            Vector3 position = boxey.transform.position;
-            position.y += 1;
-            boxey.transform.position = position;
-        }
-        //end move cube
+        ////move cube
+        //if (msgString == "Move left")
+        //{
+        //    Vector3 position = boxey.transform.position;
+        //    position.x += -1;
+        //    boxey.transform.position = position;
+        //}
+        //else if (msgString == "Move right")
+        //{
+        //    Vector3 position = boxey.transform.position;
+        //    position.x += 1;
+        //    boxey.transform.position = position;
+        //}
+        //else if (msgString == "Move down")
+        //{
+        //    Vector3 position = boxey.transform.position;
+        //    position.y += -1;
+        //    boxey.transform.position = position;
+        //}
+        //else if (msgString == "Move up")
+        //{
+        //    Vector3 position = boxey.transform.position;
+        //    position.y += 1;
+        //    boxey.transform.position = position;
+        //}
+        ////end move cube
 
-        //colour cube
-        if (msgString.Contains("!cubecolour"))
-        {
-            boxey.GetComponent<Renderer>().material.color = Random.ColorHSV(0f, 1f, 1f, 1f, 0.5f, 1f);
-        }
-        //end colour cube
+        ////colour cube
+        //if (msgString.Contains("!cubecolour"))
+        //{
+        //    boxey.GetComponent<Renderer>().material.color = Random.ColorHSV(0f, 1f, 1f, 1f, 0.5f, 1f);
+        //}
+        ////end colour cube
 
         //test.text = user;
 
