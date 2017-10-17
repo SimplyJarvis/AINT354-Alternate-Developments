@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using System.IO;
+using TMPro;
 
 [RequireComponent(typeof(TwitchIRC))]
 public class Test : MonoBehaviour {
@@ -10,8 +11,8 @@ public class Test : MonoBehaviour {
     private TwitchIRC IRC;
     private LinkedList<GameObject> messages = new LinkedList<GameObject>();
     public int maxMessages = 100;
-    public Text test;
-    public Text test2;
+    public GameObject test;
+    public GameObject test2;
     private bool notWon = false;
     private string[] textFile;
     private int randomNum;
@@ -35,7 +36,8 @@ public class Test : MonoBehaviour {
         int msgIndex = msg.IndexOf("PRIVMSG #");
         string msgString = msg.Substring(msgIndex + IRC.channelName.Length + 11);
         string user = msg.Substring(1, msg.IndexOf('!') - 1);
-
+        TextMeshPro test2 = GetComponent<TextMeshPro>();
+        TextMeshPro test = GetComponent<TextMeshPro>();
         //remove old messages for performance reasons.
         if (messages.Count > maxMessages)
         {
@@ -49,11 +51,11 @@ public class Test : MonoBehaviour {
             var sr = File.OpenText("Assets/Games_Scripts/Phrases.txt");
             textFile = sr.ReadToEnd().Split("\n"[0]);
             randomNum = Random.Range(0,textFile.Length);
-            test.text = textFile[randomNum].Substring(0, textFile[randomNum].Length - 1);
+            test.SetText (textFile[randomNum].Substring(0, textFile[randomNum].Length - 1));
         }
         if (msgString.ToLower().Contains(test.text.ToLower()) & notWon == false){
             Debug.Log("----------------------------");
-            test2.text = "Winner: " + user;
+            test2.SetText("Winner: " + user);
             notWon = true;
         }
         
