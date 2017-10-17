@@ -19,6 +19,11 @@ public class TwitchIRC : MonoBehaviour
     private Queue<string> commandQueue = new Queue<string>();
     private List<string> recievedMsgs = new List<string>();
     private System.Threading.Thread inProc, outProc;
+
+    void Awake()
+    {
+        DontDestroyOnLoad(transform.gameObject);
+    }
     private void StartIRC()
     {
         System.Net.Sockets.TcpClient sock = new System.Net.Sockets.TcpClient();

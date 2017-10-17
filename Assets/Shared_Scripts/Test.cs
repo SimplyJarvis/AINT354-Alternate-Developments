@@ -18,7 +18,7 @@ public class Test : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
-        IRC = this.GetComponent<TwitchIRC>();
+        IRC = GameObject.Find("Twitch").GetComponent<TwitchIRC>();
         //IRC.SendCommand("CAP REQ :twitch.tv/tags"); //register for additional data such as emote-ids, name color etc.
         IRC.messageRecievedEvent.AddListener(OnChatMsgRecieved);
     }

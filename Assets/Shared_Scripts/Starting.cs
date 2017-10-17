@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class Starting : MonoBehaviour {
 
@@ -24,6 +25,6 @@ public class Starting : MonoBehaviour {
         loading.GetComponent<TwitchIRC>().oauth = textBoxOauth.text;
         loading.GetComponent<TwitchIRC>().channelName = textBoxUser.text;
         loading.SetActive(true);
-        button.SetActive(false);
+        SceneManager.LoadScene("MainTest");
     }
 }
