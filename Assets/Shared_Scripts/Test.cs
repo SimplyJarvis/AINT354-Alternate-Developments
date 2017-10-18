@@ -51,7 +51,7 @@ public class Test : MonoBehaviour {
             var sr = File.OpenText("Assets/Games_Scripts/Phrases.txt");
             textFile = sr.ReadToEnd().Split("\n"[0]);
             randomNum = Random.Range(0,textFile.Length);
-            test.text = textFile[randomNum].Substring(0, textFile[randomNum].Length);
+            test.text = textFile[randomNum].Substring(0, textFile[randomNum].Length -1);
             //TextMeshPro fancytext1 = GetComponent<TextMeshPro>();
             Fancytext1.SetText(test.text);
         }
