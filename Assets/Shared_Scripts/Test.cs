@@ -54,6 +54,7 @@ public class Test : MonoBehaviour {
             test.text = textFile[randomNum].Substring(0, textFile[randomNum].Length -1);
             //TextMeshPro fancytext1 = GetComponent<TextMeshPro>();
             Fancytext1.SetText(test.text);
+            notWon = false;
         }
         if (msgString.ToLower().Contains(test.text.ToLower()) & notWon == false){
             Debug.Log("----------------------------");
