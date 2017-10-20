@@ -11,10 +11,13 @@ public class Combat_ChatIRC : MonoBehaviour {
     private bool StartingPhase = true;
     [SerializeField]
     private GameObject playerPrefab;
+    [SerializeField]
+    private GameObject bulletPrefab;
     private string[] CurrentPlayers = new string[10];
     private GameObject[] Players = new GameObject[10];
     private float startTimer = 10f;
     private bool Initialized = false;
+    private bool gameStart = false;
 
 
     // Use this for initialization
@@ -37,6 +40,8 @@ public class Combat_ChatIRC : MonoBehaviour {
             {
                 InitializePlayers();
                 Initialized = true;
+                gameStart = true;
+                Debug.Log("GAME START");
             }
         }
 
@@ -91,6 +96,16 @@ public class Combat_ChatIRC : MonoBehaviour {
                 Debug.Log(CurrentPlayers[i]);
             }
         }
+        else if (gameStart == true)
+        {
+            for (int i = 0; i < CurrentPlayers.Length; i++)
+            {
+                if (user == CurrentPlayers[i])
+                {
+                    Fire(i, msgString);
+                }
+            }
+        }
 
       
     
@@ -106,5 +121,23 @@ public class Combat_ChatIRC : MonoBehaviour {
                 Players[i] = Instantiate(playerPrefab, new Vector3(Random.Range(-8f, 8f), 0, Random.Range(-4f, 4f)), Quaternion.identity);
             }
         }
+        StartingPhase = false;
+    }
+
+    void Fire(int username, string direction)
+    {
+        int rotate;
+
+        if (int.TryParse(direction, out rotate))
+        {
+            Players[username].transform.Rotate(0, rotate, 0);
+            Instantiate(bulletPrefab, Players[username].transform.position, Players[username].transform.rotation);
+        }
+        else
+        {
+            IRC.SendMsg("@" + CurrentPlayers[username] + " Enter a number only");
+        }
+
+        
     }
 }
