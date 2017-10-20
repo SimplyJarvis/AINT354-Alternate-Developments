@@ -11,14 +11,12 @@ public class Combat_ChatIRC : MonoBehaviour {
     private bool StartingPhase = true;
     [SerializeField]
     private GameObject playerPrefab;
-    [SerializeField]
-    private GameObject bulletPrefab;
     private string[] CurrentPlayers = new string[10];
     private GameObject[] Players = new GameObject[10];
     private float startTimer = 10f;
     private bool Initialized = false;
     private bool gameStart = false;
-
+    private int PlayerCount = 0;
 
     // Use this for initialization
     void Start () {
@@ -52,7 +50,7 @@ public class Combat_ChatIRC : MonoBehaviour {
     {
         //parse from buffer.
         int msgIndex = msg.IndexOf("PRIVMSG #");
-        string msgString = msg.Substring(msgIndex + IRC.channelName.Length + 11);
+        string msgString = msg.Substring(msgIndex + IRC.channelName.Length + 11).ToLower();
         string user = msg.Substring(1, msg.IndexOf('!') - 1);
 
         //remove old messages for performance reasons.
@@ -102,7 +100,10 @@ public class Combat_ChatIRC : MonoBehaviour {
             {
                 if (user == CurrentPlayers[i])
                 {
-                    Fire(i, msgString);
+                    if (Players[i] != null)
+                    {
+                        Fire(i, msgString);
+                    }
                 }
             }
         }
@@ -119,11 +120,13 @@ public class Combat_ChatIRC : MonoBehaviour {
             if (CurrentPlayers[i] != null)
             {
                 Players[i] = Instantiate(playerPrefab, new Vector3(Random.Range(-8f, 8f), 0, Random.Range(-4f, 4f)), Quaternion.identity);
+                Players[i].GetComponentInChildren<TextMesh>().text = CurrentPlayers[i];
+                PlayerCount++;
             }
         }
         StartingPhase = false;
     }
-
+    //FIRE AND MOVE
     void Fire(int username, string direction)
     {
         int rotate;
@@ -131,13 +134,46 @@ public class Combat_ChatIRC : MonoBehaviour {
         if (int.TryParse(direction, out rotate))
         {
             Players[username].transform.Rotate(0, rotate, 0);
-            Instantiate(bulletPrefab, Players[username].transform.position, Players[username].transform.rotation);
+            Players[username].GetComponentInChildren<Combat_BulletSpawn>().BulletFire();
         }
         else
         {
-            IRC.SendMsg("@" + CurrentPlayers[username] + " Enter a number only");
+            if (direction.Contains("up"))
+            {
+                Players[username].transform.position += new Vector3 (0, 0, 0.8f);
+            }
+            if (direction.Contains("down"))
+            {
+                Players[username].transform.position += new Vector3(0, 0, -0.8f);
+            }
+            if (direction.Contains("left"))
+            {
+                Players[username].transform.position += new Vector3(-0.8f, 0, 0);
+            }
+            if (direction.Contains("right"))
+            {
+                Players[username].transform.position += new Vector3(0.8f, 0, 0);
+            }
+            else
+            {
+                IRC.SendMsg("@" + CurrentPlayers[username] + " You may enter a number or up,down,left,right");
+            }
         }
 
         
+    }
+
+    public void DeathCount()
+    {
+        PlayerCount--;
+        if (PlayerCount == 1)
+        {
+            GameOver();
+        }
+    }
+
+    void GameOver()
+    {
+        Debug.Log("FINISHED");
     }
 }
