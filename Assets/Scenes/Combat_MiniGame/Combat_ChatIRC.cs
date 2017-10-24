@@ -140,19 +140,19 @@ public class Combat_ChatIRC : MonoBehaviour {
         {
             if (direction.Contains("up"))
             {
-                Players[username].transform.position += new Vector3 (0, 0, 0.8f);
+                Players[username].transform.position += (Players[username].transform.forward * 0.5f);
             }
-            if (direction.Contains("down"))
+            else if (direction.Contains("down"))
             {
-                Players[username].transform.position += new Vector3(0, 0, -0.8f);
+                Players[username].transform.position += -(Players[username].transform.forward * 0.5f);
             }
-            if (direction.Contains("left"))
+            else if (direction.Contains("left"))
             {
-                Players[username].transform.position += new Vector3(-0.8f, 0, 0);
+                Players[username].transform.position += -(Players[username].transform.right * 0.5f);
             }
-            if (direction.Contains("right"))
+            else if (direction.Contains("right"))
             {
-                Players[username].transform.position += new Vector3(0.8f, 0, 0);
+                Players[username].transform.position += (Players[username].transform.right * 0.5f);
             }
             else
             {
