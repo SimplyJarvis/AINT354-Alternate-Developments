@@ -119,7 +119,7 @@ public class Combat_ChatIRC : MonoBehaviour {
         {
             if (CurrentPlayers[i] != null)
             {
-                Players[i] = Instantiate(playerPrefab, new Vector3(Random.Range(-8f, 8f), 0, Random.Range(-4f, 4f)), Quaternion.identity);
+                Players[i] = Instantiate(playerPrefab, new Vector3(Random.Range(-8f, 8f), 1.4f, Random.Range(-4f, 4f)), playerPrefab.transform.rotation);
                 Players[i].GetComponentInChildren<TextMesh>().text = CurrentPlayers[i];
                 PlayerCount++;
             }
@@ -134,6 +134,7 @@ public class Combat_ChatIRC : MonoBehaviour {
         if (int.TryParse(direction, out rotate))
         {
             Players[username].transform.Rotate(0, rotate, 0);
+
             Players[username].GetComponentInChildren<Combat_BulletSpawn>().BulletFire();
         }
         else
