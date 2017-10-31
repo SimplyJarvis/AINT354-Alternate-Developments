@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 
 public class Combat_ChatIRC : MonoBehaviour {
@@ -17,10 +19,15 @@ public class Combat_ChatIRC : MonoBehaviour {
     private bool Initialized = false;
     private bool gameStart = false;
     private int PlayerCount = 0;
+    [SerializeField]
+    GameObject instructions;
+    [SerializeField]
+    TextMesh countText;
+    int count = 0;
 
     // Use this for initialization
     void Start () {
-        IRC = this.GetComponent<TwitchIRC>();
+        IRC = GameObject.FindGameObjectWithTag("ControllerIRC").GetComponent<TwitchIRC>();
         //IRC.SendCommand("CAP REQ :twitch.tv/tags"); //register for additional data such as emote-ids, name color etc.
         IRC.messageRecievedEvent.AddListener(OnChatMsgRecieved);
         
@@ -89,6 +96,8 @@ public class Combat_ChatIRC : MonoBehaviour {
                         if (CurrentPlayers[i] == null)
                         {
                             CurrentPlayers[i] = user;
+                            count++;
+                            countText.text = count + "/10 Joined";
                             break;
                         }
                     }
@@ -125,12 +134,14 @@ public class Combat_ChatIRC : MonoBehaviour {
         {
             if (CurrentPlayers[i] != null)
             {
-                Players[i] = Instantiate(playerPrefab, new Vector3(Random.Range(-8f, 8f), 1.4f, Random.Range(-4f, 4f)), playerPrefab.transform.rotation);
+                Players[i] = Instantiate(playerPrefab, new Vector3(Random.Range(-16.0f, 16.0f), 1.4f, Random.Range(-8.0f, 8.0f)), playerPrefab.transform.rotation);
                 Players[i].GetComponentInChildren<TextMesh>().text = CurrentPlayers[i];
                 PlayerCount++;
             }
         }
         StartingPhase = false;
+        instructions.SetActive(false);
+        countText.text = "";
     }
     //FIRE AND MOVE
     void Fire(int username, string direction)
@@ -182,6 +193,19 @@ public class Combat_ChatIRC : MonoBehaviour {
     void GameOver()
     {
         Debug.Log("FINISHED");
-        
+
+        for (int i = 0; i < Players.Length; i++)
+        {
+            if (Players[i] != null)
+            {
+                countText.text = "Finish";
+            }
+        }
+        Invoke("Restart", 8f);
+    }
+
+    void Restart()
+    {
+        SceneManager.LoadScene(0);
     }
 }
