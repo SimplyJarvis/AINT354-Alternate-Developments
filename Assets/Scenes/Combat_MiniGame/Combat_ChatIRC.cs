@@ -30,7 +30,7 @@ public class Combat_ChatIRC : MonoBehaviour {
 	void Update () {
         if (startTimer >= 0)
         {
-            startTimer -= Time.deltaTime;
+           // startTimer -= Time.deltaTime;
         }
         else
         {
@@ -58,6 +58,12 @@ public class Combat_ChatIRC : MonoBehaviour {
         {
             Destroy(messages.First.Value);
             messages.RemoveFirst();
+        }
+
+        if (msgString == "!start")
+        {
+            StartingPhase = false;
+            startTimer = -5;
         }
 
         //STARTING PHASE (FINDS PLAYERS)
@@ -176,5 +182,6 @@ public class Combat_ChatIRC : MonoBehaviour {
     void GameOver()
     {
         Debug.Log("FINISHED");
+        
     }
 }
