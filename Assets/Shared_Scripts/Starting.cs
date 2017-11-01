@@ -25,6 +25,6 @@ public class Starting : MonoBehaviour {
         loading.GetComponent<TwitchIRC>().oauth = textBoxOauth.text;
         loading.GetComponent<TwitchIRC>().channelName = textBoxUser.text.ToLower();
         loading.SetActive(true);
-        SceneManager.LoadScene("MainTest");
+        SceneManager.LoadScene("MainMenu");
     }
 }

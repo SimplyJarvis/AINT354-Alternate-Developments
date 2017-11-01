@@ -34,7 +34,7 @@ public class SwitchGame : MonoBehaviour {
             Destroy(messages.First.Value);
             messages.RemoveFirst();
         }
-        if (user == "minigamesontwitch" || user == "steeldarkeagel" || user == "simply_jarvis"|| user == "dafalio")
+        if (user == "minigamesontwitch" || user == "steeldarkeagel" || user == "simply_jarvis"|| user == "dafallio")
         {
             if (msgString.Contains("!ChangeGame."))
             {

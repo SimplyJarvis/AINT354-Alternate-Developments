@@ -44,7 +44,7 @@ public class MenuSwitch : MonoBehaviour {
 
     void next()
     {
-        SceneManager.LoadScene(1);
+        SceneManager.LoadScene(3);
     }
 
     }
