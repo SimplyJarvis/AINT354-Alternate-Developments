@@ -69,8 +69,11 @@ public class Combat_ChatIRC : MonoBehaviour {
 
         if (msgString == "!start")
         {
-            StartingPhase = false;
-            startTimer = -5;
+            if (count > 1)
+            {
+                StartingPhase = false;
+                startTimer = -5;
+            }
         }
 
         //STARTING PHASE (FINDS PLAYERS)

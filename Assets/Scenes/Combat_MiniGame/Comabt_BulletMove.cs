@@ -11,7 +11,7 @@ public class Comabt_BulletMove : MonoBehaviour {
 	void Update () {
         transform.position += transform.forward * Time.deltaTime * movementSpeed;
         timer += Time.deltaTime;
-        if (timer > 3)
+        if (timer > 6)
         {
             Destroy(gameObject);
         }
