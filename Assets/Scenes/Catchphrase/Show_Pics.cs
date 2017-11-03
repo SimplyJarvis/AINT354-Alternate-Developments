@@ -62,39 +62,39 @@ public class Show_Pics : MonoBehaviour {
             messages.RemoveFirst();
         }
         //Polling to delete
-        if (msgString.ToLower() == "a")
+        if (msgString.ToLower() == "a" && squareRemove[0] != -1)
         {
             squareRemove[0]++;
         }
-        else if (msgString.ToLower() == "b")
+        else if (msgString.ToLower() == "b" && squareRemove[1] != -1)
         {
             squareRemove[1]++;
         }
-        else if (msgString.ToLower() == "c")
+        else if (msgString.ToLower() == "c" && squareRemove[2] != -1)
         {
             squareRemove[2]++;
         }
-        else if (msgString.ToLower() == "d")
+        else if (msgString.ToLower() == "d" && squareRemove[3] != -1)
         {
             squareRemove[3]++;
         }
-        else if (msgString.ToLower() == "d")
+        else if (msgString.ToLower() == "e" && squareRemove[4] != -1)
         {
             squareRemove[4]++;
         }
-        else if (msgString.ToLower() == "f")
+        else if (msgString.ToLower() == "f" && squareRemove[5] != -1)
         {
             squareRemove[5]++;
         }
-        else if (msgString.ToLower() == "g")
+        else if (msgString.ToLower() == "g" && squareRemove[6] != -1)
         {
             squareRemove[6]++;
         }
-        else if (msgString.ToLower() == "h")
+        else if (msgString.ToLower() == "h" && squareRemove[7] != -1)
         {
             squareRemove[7]++;
         }
-        else if (msgString.ToLower() == "i")
+        else if (msgString.ToLower() == "i" && squareRemove[8] != -1)
         {
             squareRemove[8]++;
         }
@@ -118,7 +118,8 @@ public class Show_Pics : MonoBehaviour {
             List<int> tooRemove = new List<int>();
             for (int i = 0; i < 9; i++)
             {
-                Debug.Log(i);
+                Debug.Log("Array: " + i);
+                Debug.Log("Nunber: " + squareRemove[i]);
                 if (squareRemove[i] == squareRemove.Max())
                 {
                     tooRemove.Add(i);
@@ -126,7 +127,12 @@ public class Show_Pics : MonoBehaviour {
             }
             chosenSquare = tooRemove[Random.Range(0, tooRemove.Count)];
             squares[chosenSquare].SetActive(false);
-            yield return new WaitForSeconds(20f);
+            for (int i = 0; i < 9; i++)
+            {
+                squareRemove[i] = 0;
+            }
+            squareRemove[chosenSquare] = -1;
+            yield return new WaitForSeconds(10f);
         }
 
     }
