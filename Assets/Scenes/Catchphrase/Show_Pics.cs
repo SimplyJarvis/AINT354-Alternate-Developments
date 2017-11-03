@@ -118,8 +118,6 @@ public class Show_Pics : MonoBehaviour {
             List<int> tooRemove = new List<int>();
             for (int i = 0; i < 9; i++)
             {
-                Debug.Log("Array: " + i);
-                Debug.Log("Nunber: " + squareRemove[i]);
                 if (squareRemove[i] == squareRemove.Max())
                 {
                     tooRemove.Add(i);
@@ -129,10 +127,13 @@ public class Show_Pics : MonoBehaviour {
             squares[chosenSquare].SetActive(false);
             for (int i = 0; i < 9; i++)
             {
-                squareRemove[i] = 0;
+                if (squareRemove[i] != -1)
+                {
+                    squareRemove[i] = 0;
+                }
             }
             squareRemove[chosenSquare] = -1;
-            yield return new WaitForSeconds(10f);
+            yield return new WaitForSeconds(15f);
         }
 
     }
