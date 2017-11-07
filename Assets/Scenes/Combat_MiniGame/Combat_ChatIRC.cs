@@ -161,19 +161,19 @@ public class Combat_ChatIRC : MonoBehaviour {
         {
             if (direction.Contains("up"))
             {
-                Players[username].transform.position += (Players[username].transform.forward * 0.5f);
+                Players[username].GetComponent<TankMove>().Move("up");
             }
             else if (direction.Contains("down"))
             {
-                Players[username].transform.position += -(Players[username].transform.forward * 0.5f);
+                Players[username].GetComponent<TankMove>().Move("down");
             }
             else if (direction.Contains("left"))
             {
-                Players[username].transform.position += -(Players[username].transform.right * 0.5f);
+                Players[username].GetComponent<TankMove>().Move("left");
             }
             else if (direction.Contains("right"))
             {
-                Players[username].transform.position += (Players[username].transform.right * 0.5f);
+                Players[username].GetComponent<TankMove>().Move("right");
             }
             else
             {
