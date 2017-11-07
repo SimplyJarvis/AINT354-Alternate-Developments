@@ -128,6 +128,7 @@ public class Show_Pics : MonoBehaviour {
     IEnumerator RemoveSquare()
     {
         Debug.Log(memes[chosenMeme].name);
+        //start wait
         for (;;)
         {
             yield return new WaitForSeconds(1f);
@@ -138,6 +139,7 @@ public class Show_Pics : MonoBehaviour {
             }            
         }
         timeRemaining = 15;
+        //removing square
         for (;;)
         {
             List<int> tooRemove = new List<int>();
@@ -204,6 +206,7 @@ public class Show_Pics : MonoBehaviour {
                     }
                 }
             }
+            //wait for next remove
             for (;;)
             {
                 yield return new WaitForSeconds(1f);
@@ -219,6 +222,7 @@ public class Show_Pics : MonoBehaviour {
     }
     IEnumerator Winner()
     {
+        //Show winner
         StopCoroutine("RemoveSquare");
         for (int i = 0; i < 9; i++)
         {
@@ -226,6 +230,7 @@ public class Show_Pics : MonoBehaviour {
         }
         prevWinners.text = currentWinner.text + "\n" + "\n" + prevWinners.text;
         currentWinner.text = winner;
+        //Waiting for next round
         timeRemaining = 10;
         for (;;)
         {
@@ -236,6 +241,7 @@ public class Show_Pics : MonoBehaviour {
                 break;
             }
         }
+        //Start next round
         chosenMeme = Random.Range(0, 20);
         GetComponent<Image>().material.mainTexture = memes[chosenMeme];
         GetComponent<Image>().enabled = false;
