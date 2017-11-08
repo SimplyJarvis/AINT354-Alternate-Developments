@@ -16,4 +16,18 @@ public class Comabt_BulletMove : MonoBehaviour {
             Destroy(gameObject);
         }
     }
+
+
+    void OnCollisionEnter(Collision collision)
+    {
+        if (collision.collider.tag == "Wall")
+        {
+            Destroy(gameObject);
+        }
+
+    }
+
+
+
+
 }
