@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using System.Linq;
+using UnityEngine.SceneManagement;
 
 public class Show_Pics : MonoBehaviour {
 
@@ -22,6 +23,8 @@ public class Show_Pics : MonoBehaviour {
     private string winner;
     public Text currentWinner;
     public Text prevWinners;
+    private int totalGames = 0;
+    private int maxGames = 5;
 
 
     // Used for downloading images
@@ -240,6 +243,11 @@ public class Show_Pics : MonoBehaviour {
             {
                 break;
             }
+        }
+        totalGames++;
+        if (totalGames == maxGames)
+        {
+            SceneManager.LoadScene("ChooseGame");
         }
         //Start next round
         chosenMeme = Random.Range(0, 20);

@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.IO;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 [RequireComponent(typeof(TwitchIRC))]
 public class Test : MonoBehaviour {
@@ -17,6 +18,10 @@ public class Test : MonoBehaviour {
     private bool notWon = false;
     private string[] textFile;
     private int randomNum;
+    private bool newGame = false;
+    private int timeRemaining = 10;
+    private int totalGames = 0;
+    private int maxGames = 5;
 
     // Use this for initialization
     void Start () {
@@ -45,7 +50,7 @@ public class Test : MonoBehaviour {
             messages.RemoveFirst();
         }
         //text game
-        if (msgString == "start" )
+        if (newGame == false)
         {
            // test.enabled = true;
             var sr = File.OpenText("Assets/Games_Scripts/Phrases.txt");
@@ -55,52 +60,21 @@ public class Test : MonoBehaviour {
             //TextMeshPro fancytext1 = GetComponent<TextMeshPro>();
             Fancytext1.SetText(test.text);
             notWon = false;
+            newGame = true;
         }
         if (msgString.ToLower().Contains(test.text.ToLower()) & notWon == false){
             Debug.Log("----------------------------");
             test2.text = "Winner: " + user;
             notWon = true;
             Fancytext1.SetText(test2.text);
+            StartCoroutine("NewRound");
+        }       
+
+        if (timeRemaining == 0)
+        {
+            newGame = false;
+            timeRemaining = 10;
         }
-        
-
-        ////end text game
-
-        ////move cube
-        //if (msgString == "Move left")
-        //{
-        //    Vector3 position = boxey.transform.position;
-        //    position.x += -1;
-        //    boxey.transform.position = position;
-        //}
-        //else if (msgString == "Move right")
-        //{
-        //    Vector3 position = boxey.transform.position;
-        //    position.x += 1;
-        //    boxey.transform.position = position;
-        //}
-        //else if (msgString == "Move down")
-        //{
-        //    Vector3 position = boxey.transform.position;
-        //    position.y += -1;
-        //    boxey.transform.position = position;
-        //}
-        //else if (msgString == "Move up")
-        //{
-        //    Vector3 position = boxey.transform.position;
-        //    position.y += 1;
-        //    boxey.transform.position = position;
-        //}
-        ////end move cube
-
-        ////colour cube
-        //if (msgString.Contains("!cubecolour"))
-        //{
-        //    boxey.GetComponent<Renderer>().material.color = Random.ColorHSV(0f, 1f, 1f, 1f, 0.5f, 1f);
-        //}
-        ////end colour cube
-
-        //test.text = user;
 
         Debug.Log(user + " : " + msgString);
         Debug.Log(msgString);
@@ -108,5 +82,23 @@ public class Test : MonoBehaviour {
 
         ////add new message.
         //CreateUIMessage(user, msgString);
+    }
+
+    IEnumerator NewRound()
+    {
+        for (; ; )
+        {
+            yield return new WaitForSeconds(1f);
+            timeRemaining--;
+            if (timeRemaining == 0)
+            {
+                break;
+            }
+        }
+        totalGames++;
+        if (totalGames == maxGames)
+        {
+            SceneManager.LoadScene("ChooseGame");
+        }
     }
 }

@@ -24,6 +24,8 @@ public class Combat_ChatIRC : MonoBehaviour {
     [SerializeField]
     TextMesh countText;
     int count = 0;
+    private int totalGames = 0;
+    private int maxGames = 2;
 
     // Use this for initialization
     void Start () {
@@ -209,6 +211,14 @@ public class Combat_ChatIRC : MonoBehaviour {
 
     void Restart()
     {
-        SceneManager.LoadScene(1);
+        if (PlayerPrefs.GetInt("Score") == 1)
+        {
+            SceneManager.LoadScene("ChooseGame");
+        }
+        else
+        {
+            PlayerPrefs.SetInt("Score", 1);
+        }
+        //SceneManager.LoadScene(1);
     }
 }

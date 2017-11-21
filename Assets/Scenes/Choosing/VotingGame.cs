@@ -30,6 +30,7 @@ public class VotingGame : MonoBehaviour
         IRC = GameObject.Find("Twitch").GetComponent<TwitchIRC>();
         IRC.messageRecievedEvent.AddListener(OnChatMsgRecieved);
         StartCoroutine("Countdown");
+        PlayerPrefs.SetInt("Score", 0);
     }
 
     // Update is called once per frame
