@@ -4,6 +4,9 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.Linq;
 using UnityEngine.SceneManagement;
+using Mono.Data.Sqlite;
+using System.Data;
+using System;
 
 public class Show_Pics : MonoBehaviour {
 
@@ -25,31 +28,71 @@ public class Show_Pics : MonoBehaviour {
     public Text prevWinners;
     private int totalGames = 0;
     private int maxGames = 5;
+    private List<int> ygoNumbers = new List<int>();
+    private List<string> ygoNames = new List<string>();
+    private int randomNum;
 
 
     // Used for downloading images
-    //string url = "https://raw.githubusercontent.com/moecube/ygopro-images/master/pics/10000020.jpg";        
-    //IEnumerator Start () {
-    //    Texture2D tex;
-    //    tex = new Texture2D(4, 4, TextureFormat.DXT1, false);
-    //    WWW www = new WWW(url);
-    //    yield return www;
-    //    www.LoadImageIntoTexture(tex);
-    //    GetComponent<Image>().material.mainTexture = tex;
-    //    GetComponent<Image>().enabled = false;
-    //    GetComponent<Image>().enabled = true;
-    //}
 
-    void Start()
+    IEnumerator Start()
     {
-        chosenMeme = Random.Range(0, 20);
-        GetComponent<Image>().material.mainTexture = memes[chosenMeme];
+
+        string conn = "URI=file:Assets/Scenes/Catchphrase/cards.cdb"; //Path to database.
+        IDbConnection dbconn;
+        dbconn = (IDbConnection)new SqliteConnection(conn);
+        dbconn.Open(); //Open connection to the database.
+        IDbCommand dbcmd = dbconn.CreateCommand();
+        string sqlQuery = "SELECT id,name FROM texts";
+        dbcmd.CommandText = sqlQuery;
+        IDataReader reader = dbcmd.ExecuteReader();
+        while (reader.Read())
+        {
+            ygoNumbers.Add(reader.GetInt32(0));
+            ygoNames.Add(reader.GetString(1));
+
+
+        }
+        randomNum = UnityEngine.Random.Range(0, ygoNumbers.Count);
+        Debug.Log("value=" + ygoNumbers[randomNum] + "  name =" + ygoNames[randomNum]);
+        reader.Close();
+        reader = null;
+        dbcmd.Dispose();
+        dbcmd = null;
+        dbconn.Close();
+        dbconn = null;
+
+        Debug.Log(ygoNumbers.Count);
+
+        string url = "https://raw.githubusercontent.com/moecube/ygopro-images/master/pics/"+ ygoNumbers[randomNum] +".jpg";
+
+        Texture2D tex;
+        tex = new Texture2D(4, 4, TextureFormat.DXT1, false);
+        WWW www = new WWW(url);
+        yield return www;
+        www.LoadImageIntoTexture(tex);
+        GetComponent<Image>().material.mainTexture = tex;
         GetComponent<Image>().enabled = false;
         GetComponent<Image>().enabled = true;
+
         StartCoroutine("RemoveSquare");
         IRC = GameObject.Find("Twitch").GetComponent<TwitchIRC>();
         IRC.messageRecievedEvent.AddListener(OnChatMsgRecieved);
     }
+
+    //void Start()
+    //{
+
+    //    chosenMeme = UnityEngine.Random.Range(0, 20);
+    //    GetComponent<Image>().material.mainTexture = memes[chosenMeme];
+    //    GetComponent<Image>().enabled = false;
+    //    GetComponent<Image>().enabled = true;
+
+
+    //    StartCoroutine("RemoveSquare");
+    //    IRC = GameObject.Find("Twitch").GetComponent<TwitchIRC>();
+    //    IRC.messageRecievedEvent.AddListener(OnChatMsgRecieved);
+    //}
 
     // Update is called once per frame
     void Update () {
@@ -117,7 +160,8 @@ public class Show_Pics : MonoBehaviour {
             revealArray[8].text = "Votes for revealing I: " + squareRemove[8].ToString();
         }
         //Correct answer
-        if (msgString.ToLower().Contains(memes[chosenMeme].name.ToLower()))
+        //if (msgString.ToLower().Contains(memes[chosenMeme].name.ToLower()))
+        if (msgString.ToLower().Contains(ygoNames[randomNum].ToLower()))
         {
             for (int i = 0; i < 9; i++)
             {
@@ -153,7 +197,7 @@ public class Show_Pics : MonoBehaviour {
                     tooRemove.Add(i);
                 }
             }
-            chosenSquare = tooRemove[Random.Range(0, tooRemove.Count)];
+            chosenSquare = tooRemove[UnityEngine.Random.Range(0, tooRemove.Count)];
             squares[chosenSquare].SetActive(false);
             for (int i = 0; i < 9; i++)
             {
@@ -250,8 +294,25 @@ public class Show_Pics : MonoBehaviour {
             SceneManager.LoadScene("ChooseGame");
         }
         //Start next round
-        chosenMeme = Random.Range(0, 20);
-        GetComponent<Image>().material.mainTexture = memes[chosenMeme];
+        //chosenMeme = UnityEngine.Random.Range(0, 20);
+        //GetComponent<Image>().material.mainTexture = memes[chosenMeme];
+        randomNum = UnityEngine.Random.Range(0, ygoNumbers.Count);
+        string url = "https://raw.githubusercontent.com/moecube/ygopro-images/master/pics/" + ygoNumbers[randomNum] + ".jpg";
+
+        Texture2D tex;
+        tex = new Texture2D(4, 4, TextureFormat.DXT1, false);
+        WWW www = new WWW(url);
+        yield return www;
+        www.LoadImageIntoTexture(tex);
+        GetComponent<Image>().material.mainTexture = tex;
+        GetComponent<Image>().enabled = false;
+        GetComponent<Image>().enabled = true;
+
+        StartCoroutine("RemoveSquare");
+        IRC = GameObject.Find("Twitch").GetComponent<TwitchIRC>();
+        IRC.messageRecievedEvent.AddListener(OnChatMsgRecieved);
+        Debug.Log("value=" + ygoNumbers[randomNum] + "  name =" + ygoNames[randomNum]);
+
         GetComponent<Image>().enabled = false;
         GetComponent<Image>().enabled = true;
         timeRemaining = 15;
