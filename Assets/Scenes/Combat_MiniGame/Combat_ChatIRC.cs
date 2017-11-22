@@ -15,6 +15,7 @@ public class Combat_ChatIRC : MonoBehaviour {
     private GameObject playerPrefab;
     private string[] CurrentPlayers = new string[10];
     private GameObject[] Players = new GameObject[10];
+    [SerializeField]
     private float startTimer = 10f;
     private bool Initialized = false;
     private bool gameStart = false;
@@ -22,10 +23,18 @@ public class Combat_ChatIRC : MonoBehaviour {
     [SerializeField]
     GameObject instructions;
     [SerializeField]
-    TextMesh countText;
+    Text countText;
     int count = 0;
     private int totalGames = 0;
     private int maxGames = 2;
+
+    //Handle TimeLine Shit
+    [SerializeField]
+    private GameObject gameCamera;
+    [SerializeField]
+    private GameObject attractCamera;
+    [SerializeField]
+    private GameObject timeLine;
 
     // Use this for initialization
     void Start () {
@@ -39,18 +48,9 @@ public class Combat_ChatIRC : MonoBehaviour {
 	void Update () {
         if (startTimer >= 0)
         {
-           // startTimer -= Time.deltaTime;
+            startTimer -= Time.deltaTime;
         }
-        else
-        {
-            if (Initialized == false)
-            {
-                InitializePlayers();
-                Initialized = true;
-                gameStart = true;
-                Debug.Log("GAME START");
-            }
-        }
+       
 
  
     }
@@ -73,8 +73,15 @@ public class Combat_ChatIRC : MonoBehaviour {
         {
             if (count > 1)
             {
-                StartingPhase = false;
-                startTimer = -5;
+                if (startTimer <= 0)
+                {
+                    StartingPhase = false;
+                    startTimer = -5;
+                    InitializePlayers();
+                    Initialized = true;
+                    gameStart = true;
+                    Debug.Log("GAME START");
+                }
             }
         }
 
@@ -96,16 +103,19 @@ public class Combat_ChatIRC : MonoBehaviour {
 
                 if (!nameCheck)
                 {
-                    for (int i = 0; i < CurrentPlayers.Length; i++)
-                    {
-                        if (CurrentPlayers[i] == null)
+                    
+                        for (int i = 0; i < CurrentPlayers.Length; i++)
                         {
-                            CurrentPlayers[i] = user;
-                            count++;
-                            countText.text = count + "/10 Joined";
-                            break;
+                            if (CurrentPlayers[i] == null)
+                            {
+                                CurrentPlayers[i] = user;
+                                count++;
+                                countText.text = count + "/10 Joined";
+                                break;
+                            }
                         }
-                    }
+                        
+                    
                 }
             }
 
@@ -145,8 +155,12 @@ public class Combat_ChatIRC : MonoBehaviour {
             }
         }
         StartingPhase = false;
-        instructions.SetActive(false);
+        //instructions.SetActive(false);
         countText.text = "";
+        attractCamera.SetActive(false);
+        gameCamera.SetActive(true);
+        timeLine.SetActive(false);
+
     }
     //FIRE AND MOVE
     void Fire(int username, string direction)

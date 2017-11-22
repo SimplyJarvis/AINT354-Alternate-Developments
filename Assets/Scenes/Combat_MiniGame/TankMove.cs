@@ -25,19 +25,19 @@ public class TankMove : MonoBehaviour {
     {
         if (direction.Contains("up"))
         {
-            newPos = transform.position + transform.forward * 5f;
+            newPos = transform.position + transform.forward * 1.5f;
         }
         else if (direction.Contains("down"))
         {
-            newPos = transform.position - transform.forward * 5f;
+            newPos = transform.position - transform.forward * 1.5f;
         }
         else if (direction.Contains("left"))
         {
-            newPos = transform.position - transform.right * 5f;
+            newPos = transform.position - transform.right * 1.5f;
         }
         else if (direction.Contains("right"))
         {
-            newPos = transform.position + transform.right * 5f;
+            newPos = transform.position + transform.right * 1.5f;
         }
     }
      public void SlerpFunction()
