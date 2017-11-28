@@ -49,7 +49,6 @@ public class TankMove : MonoBehaviour {
 
         if (originalPos != newPos)
         {
-            Debug.Log(originalPos + "/////" + newPos);
             originalPos = Vector3.Lerp(originalPos, newPos, Time.deltaTime * 1f);
             Tank.transform.position = originalPos;
         }

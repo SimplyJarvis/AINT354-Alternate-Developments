@@ -27,6 +27,8 @@ public class Combat_ChatIRC : MonoBehaviour {
     int count = 0;
     private int totalGames = 0;
     private int maxGames = 2;
+    [SerializeField]
+    private Text gameOverText;
 
     //Handle TimeLine Shit
     [SerializeField]
@@ -110,7 +112,7 @@ public class Combat_ChatIRC : MonoBehaviour {
                             {
                                 CurrentPlayers[i] = user;
                                 count++;
-                                countText.text = count + "/10 Joined";
+                                countText.text = count + "/10 Joined, At least 2 players required";
                                 break;
                             }
                         }
@@ -149,7 +151,7 @@ public class Combat_ChatIRC : MonoBehaviour {
         {
             if (CurrentPlayers[i] != null)
             {
-                Players[i] = Instantiate(playerPrefab, new Vector3(Random.Range(-8.0f, 8.0f), 1.4f, Random.Range(-8.0f, 8.0f)), playerPrefab.transform.rotation);
+                Players[i] = Instantiate(playerPrefab, new Vector3(Random.Range(-7.0f, 7.0f), 1.4f, Random.Range(-5.0f, 5.0f)), Quaternion.Euler(0, Random.Range(0f, 360f), 0));
                 Players[i].GetComponentInChildren<TextMesh>().text = CurrentPlayers[i];
                 PlayerCount++;
             }
@@ -212,7 +214,7 @@ public class Combat_ChatIRC : MonoBehaviour {
     void GameOver()
     {
         Debug.Log("FINISHED");
-
+        gameOverText.enabled = true;
         for (int i = 0; i < Players.Length; i++)
         {
             if (Players[i] != null)
@@ -225,6 +227,7 @@ public class Combat_ChatIRC : MonoBehaviour {
 
     void Restart()
     {
+        Debug.Log(PlayerPrefs.GetInt("Score"));
         if (PlayerPrefs.GetInt("Score") == 1)
         {
             SceneManager.LoadScene("ChooseGame");
@@ -232,7 +235,8 @@ public class Combat_ChatIRC : MonoBehaviour {
         else
         {
             PlayerPrefs.SetInt("Score", 1);
+            SceneManager.LoadScene("Combat_MiniGame");
         }
-        //SceneManager.LoadScene(1);
+        
     }
 }
