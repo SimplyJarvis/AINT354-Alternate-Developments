@@ -1,12 +1,22 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
 public class Player : MonoBehaviour {
 
 	private MazeCell currentCell;
 
 	private MazeDirection currentDirection;
+    private TwitchIRC IRC;
+    private LinkedList<GameObject> messages = new LinkedList<GameObject>();
+    public int maxMessages = 100;
 
-	public void SetLocation (MazeCell cell) {
+    private void Start()
+    {
+        IRC = GameObject.Find("Twitch").GetComponent<TwitchIRC>();
+        IRC.messageRecievedEvent.AddListener(OnChatMsgRecieved);
+    }
+
+    public void SetLocation (MazeCell cell) {
 		if (currentCell != null) {
 			currentCell.OnPlayerExited();
 		}
@@ -26,8 +36,50 @@ public class Player : MonoBehaviour {
 		transform.localRotation = direction.ToRotation();
 		currentDirection = direction;
 	}
+    void OnChatMsgRecieved(string msg)
+    {
+        //parse from buffer.
+        int msgIndex = msg.IndexOf("PRIVMSG #");
+        string msgString = msg.Substring(msgIndex + IRC.channelName.Length + 11);
+        string user = msg.Substring(1, msg.IndexOf('!') - 1);
 
-	private void Update () {
+        //remove old messages for performance reasons.
+        if (messages.Count > maxMessages)
+        {
+            Destroy(messages.First.Value);
+            messages.RemoveFirst();
+        }
+
+        if (msgString == "forward")
+        {
+            Move(currentDirection);
+        }
+        else if (msgString == "right")
+        {
+            Move(currentDirection.GetNextClockwise());
+        }
+        else if (msgString == "back")
+        {
+            Move(currentDirection.GetOpposite());
+        }
+        else if (msgString == "left")
+        {
+            Move(currentDirection.GetNextCounterclockwise());
+        }
+        else if (msgString == "cw")
+        {
+            Look(currentDirection.GetNextCounterclockwise());
+        }
+        else if (msgString == "ccw")
+        {
+            Look(currentDirection.GetNextClockwise());
+        }
+
+
+
+    }
+
+    private void Update () {
 		if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow)) {
 			Move(currentDirection);
 		}
