@@ -149,7 +149,7 @@ public class Combat_ChatIRC : MonoBehaviour {
         {
             if (CurrentPlayers[i] != null)
             {
-                Players[i] = Instantiate(playerPrefab, new Vector3(Random.Range(-16.0f, 16.0f), 1.4f, Random.Range(-8.0f, 8.0f)), playerPrefab.transform.rotation);
+                Players[i] = Instantiate(playerPrefab, new Vector3(Random.Range(-8.0f, 8.0f), 1.4f, Random.Range(-8.0f, 8.0f)), playerPrefab.transform.rotation);
                 Players[i].GetComponentInChildren<TextMesh>().text = CurrentPlayers[i];
                 PlayerCount++;
             }
