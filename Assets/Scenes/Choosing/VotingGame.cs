@@ -16,7 +16,7 @@ public class VotingGame : MonoBehaviour
     private int maze = 0;
     private int tank = 0;
     private int guess = 0;
-    private int typing = 0;
+    private int race = 0;
     public Text[] tallyVotes = new Text[4];
     private int timeRemaining = 30;
     public Text counting;
@@ -39,7 +39,7 @@ public class VotingGame : MonoBehaviour
         tallyVotes[0].text = "Votes for Maze game: " + maze;
         tallyVotes[1].text = "Votes for Tank game: " + tank;
         tallyVotes[2].text = "Votes for Guessing game: " + guess;
-        tallyVotes[3].text = "Votes for Typing game: " + typing;
+        tallyVotes[3].text = "Votes for Racing game: " + race;
         counting.text = "Time until next game: " + timeRemaining;
 
         if (timeRemaining == 0)
@@ -47,7 +47,7 @@ public class VotingGame : MonoBehaviour
             chosen[0] = maze;
             chosen[1] = tank;
             chosen[2] = guess;
-            chosen[3] = typing;
+            chosen[3] = race;
 
             List<int> tooRemove = new List<int>();
             for (int i = 0; i < 4; i++)
@@ -72,7 +72,7 @@ public class VotingGame : MonoBehaviour
             }
             if (chosenGame == 3)
             {
-                SceneManager.LoadScene("MainTest");
+                SceneManager.LoadScene("HorseRace");
             }
         }
     }
@@ -130,7 +130,7 @@ public class VotingGame : MonoBehaviour
             }
         }
 
-        if (msgString.ToLower().Contains("typing"))
+        if (msgString.ToLower().Contains("race") || msgString.ToLower().Contains("racing"))
         {
             if (voted.Contains(user))
             {
@@ -138,7 +138,7 @@ public class VotingGame : MonoBehaviour
             }
             if (hasVoted == false)
             {
-                typing++;
+                race++;
                 voted.AddLast(user);
             }
         }
