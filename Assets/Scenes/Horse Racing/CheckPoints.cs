@@ -10,7 +10,7 @@ public class CheckPoints : MonoBehaviour {
 
 	void OnTriggerEnter(Collider col) {
         col.gameObject.GetComponent<NavTarget>().target = newPos;
-        col.gameObject.GetComponent<NavMeshAgent>().speed = Random.Range(5f, 9f);
+        col.gameObject.GetComponent<NavMeshAgent>().speed = Random.Range(4f, 5.5f);
 
     }
 }
