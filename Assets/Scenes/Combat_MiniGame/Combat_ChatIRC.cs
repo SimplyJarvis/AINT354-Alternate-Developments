@@ -37,6 +37,8 @@ public class Combat_ChatIRC : MonoBehaviour {
     private GameObject attractCamera;
     [SerializeField]
     private GameObject timeLine;
+    [SerializeField]
+    private AudioSource music;
 
     // Use this for initialization
     void Start () {
@@ -83,6 +85,7 @@ public class Combat_ChatIRC : MonoBehaviour {
                     Initialized = true;
                     gameStart = true;
                     Debug.Log("GAME START");
+                    music.Play();
                 }
             }
         }
@@ -174,6 +177,7 @@ public class Combat_ChatIRC : MonoBehaviour {
             Players[username].transform.Rotate(0, rotate, 0);
 
             Players[username].GetComponentInChildren<Combat_BulletSpawn>().BulletFire();
+            Players[username].GetComponent<AudioSource>().Play();
         }
         else
         {
