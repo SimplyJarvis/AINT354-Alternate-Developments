@@ -1,10 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class WinScript : MonoBehaviour {
 
     public GameObject win;
+    
 
     private void Start()
     {
@@ -18,16 +20,17 @@ public class WinScript : MonoBehaviour {
             win.SetActive(true);
             Instantiate(win);
             Debug.Log("winner");
-            Time.timeScale = (0);
+            Invoke("Restart", 8f);
         }
     }
 
-    private void OnTriggerExit(Collider other)
+   
+
+    void Restart()
     {
-        win.SetActive(false);
-        Destroy(win);
-        Debug.Log("RunAway");
-        Time.timeScale = (1);
+        Debug.Log("scenchange");
+        SceneManager.LoadScene("ChooseGame");
+
     }
 
 }

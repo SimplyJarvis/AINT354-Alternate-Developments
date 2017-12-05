@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Player : MonoBehaviour {
 
@@ -9,11 +10,13 @@ public class Player : MonoBehaviour {
     private TwitchIRC IRC;
     private LinkedList<GameObject> messages = new LinkedList<GameObject>();
     public int maxMessages = 100;
+  
 
     private void Start()
     {
         IRC = GameObject.Find("Twitch").GetComponent<TwitchIRC>();
         IRC.messageRecievedEvent.AddListener(OnChatMsgRecieved);
+        
     }
 
     public void SetLocation (MazeCell cell) {
@@ -75,6 +78,8 @@ public class Player : MonoBehaviour {
             Look(currentDirection.GetNextClockwise());
         }
 
+     
+
 
 
     }
@@ -98,5 +103,7 @@ public class Player : MonoBehaviour {
 		else if (Input.GetKeyDown(KeyCode.E)) {
 			Look(currentDirection.GetNextClockwise());
 		}
+
+       
 	}
 }
