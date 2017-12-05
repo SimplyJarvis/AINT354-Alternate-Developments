@@ -36,11 +36,11 @@ public class VotingGame : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        tallyVotes[0].text = "Votes for Maze game: " + maze;
-        tallyVotes[1].text = "Votes for Tank game: " + tank;
-        tallyVotes[2].text = "Votes for Guessing game: " + guess;
-        tallyVotes[3].text = "Votes for Racing game: " + race;
-        counting.text = "Time until next game: " + timeRemaining;
+        tallyVotes[0].text = "Type 'Maze' to play Room Current Votes: " + maze;
+        tallyVotes[1].text = "Type 'Tank' to play Combat Current Votes:  " + tank;
+        tallyVotes[2].text = "Type 'Guess' to play Totally not catchphrase Current Votes: " + guess;
+        tallyVotes[3].text = "Type 'Race' to play Bad AI racing Current Votes: " + race;
+        counting.text = "Time Until Next Game: " + timeRemaining;
 
         if (timeRemaining == 0)
         {
@@ -117,7 +117,7 @@ public class VotingGame : MonoBehaviour
             }
         }
 
-        if (msgString.ToLower().Contains("guessing"))
+        if (msgString.ToLower().Contains("guess"))
         {
             if (voted.Contains(user))
             {
