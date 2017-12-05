@@ -9,8 +9,11 @@ public class CheckPoints : MonoBehaviour {
     private Transform newPos;
 
 	void OnTriggerEnter(Collider col) {
-        col.gameObject.GetComponent<NavTarget>().target = newPos;
-        col.gameObject.GetComponent<NavMeshAgent>().speed = Random.Range(4f, 5.5f);
+        if (col.gameObject.tag == "Racer")
+        {
+            col.gameObject.GetComponent<NavTarget>().target = newPos;
+            col.gameObject.GetComponent<NavMeshAgent>().speed = Random.Range(4f, 5.5f);
+        }
 
     }
 }
