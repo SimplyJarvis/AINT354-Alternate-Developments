@@ -58,6 +58,16 @@ public class TankMove : MonoBehaviour {
 
     }
 
+    public void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.tag == "Wall")
+        {
+            newPos = originalPos + new Vector3(Random.Range(-7.0f, 7.0f), 1.4f, Random.Range(-5.0f, 5.0f));
+            SlerpFunction();
+
+        }
+    }
+
 
 
 

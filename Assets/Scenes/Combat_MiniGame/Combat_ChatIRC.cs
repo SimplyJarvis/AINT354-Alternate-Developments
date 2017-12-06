@@ -209,7 +209,7 @@ public class Combat_ChatIRC : MonoBehaviour {
     public void DeathCount()
     {
         PlayerCount--;
-        if (PlayerCount == 1)
+        if (PlayerCount == 0)
         {
             GameOver();
         }
@@ -218,15 +218,17 @@ public class Combat_ChatIRC : MonoBehaviour {
     void GameOver()
     {
         Debug.Log("FINISHED");
-        gameOverText.enabled = true;
+        
         for (int i = 0; i < Players.Length; i++)
         {
             if (Players[i] != null)
             {
                 countText.text = "Finish";
+                gameOverText.enabled = true;
+                Invoke("Restart", 8f);
             }
         }
-        Invoke("Restart", 8f);
+        
     }
 
     void Restart()
