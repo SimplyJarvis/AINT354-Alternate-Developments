@@ -29,8 +29,7 @@ public class VotingGame : MonoBehaviour
     void Start()
     {
         IRC = GameObject.Find("Twitch").GetComponent<TwitchIRC>();
-        IRC.messageRecievedEvent.AddListener(OnChatMsgRecieved);
-        StartCoroutine("Countdown");
+        IRC.messageRecievedEvent.AddListener(OnChatMsgRecieved);        
         PlayerPrefs.SetInt("Score", 0);
     }
 

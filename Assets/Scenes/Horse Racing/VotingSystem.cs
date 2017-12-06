@@ -162,10 +162,25 @@ public class VotingSystem : MonoBehaviour {
         int timeRemaining = 15;
         background2.SetActive(true);
         endObject.SetActive(true);
-        
 
-        
+
+
         if (PlayerPrefs.GetInt("Score") == 1)
+        {
+            for (; ; )
+            {
+                endText.text = "Next race in: " + timeRemaining;
+                yield return new WaitForSeconds(1f);
+                timeRemaining--;
+                if (timeRemaining == 0)
+                {
+                    break;
+                }
+            }
+            PlayerPrefs.SetInt("Score", 2);
+            SceneManager.LoadScene("HorseRace");
+        }
+        else if (PlayerPrefs.GetInt("Score") == 2)
         {
             for (; ; )
             {

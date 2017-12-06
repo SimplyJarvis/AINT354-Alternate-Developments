@@ -27,7 +27,7 @@ public class Show_Pics : MonoBehaviour {
     public Text currentWinner;
     public Text prevWinners;
     private int totalGames = 0;
-    private int maxGames = 5;
+    private int maxGames = 2;
     private List<int> ygoNumbers = new List<int>();
     private List<string> ygoNames = new List<string>();
     private int randomNum;
