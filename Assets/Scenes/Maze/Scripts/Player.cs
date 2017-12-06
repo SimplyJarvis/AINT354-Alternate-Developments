@@ -45,6 +45,7 @@ public class Player : MonoBehaviour {
         int msgIndex = msg.IndexOf("PRIVMSG #");
         string msgString = msg.Substring(msgIndex + IRC.channelName.Length + 11);
         string user = msg.Substring(1, msg.IndexOf('!') - 1);
+        msgString = msgString.ToLower();
 
         //remove old messages for performance reasons.
         if (messages.Count > maxMessages)
