@@ -39,7 +39,7 @@ public class VotingSystem : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        votedHorses.text = "Votes for Winners:" + "\n";
+        votedHorses.text = "Type name to vote for Winner:" + "\n";
         votedHorses.text = votedHorses.text + "Glue: " + votes[0] + "\n";
         votedHorses.text = votedHorses.text + "Wunder Kart: " + votes[1] + "\n";
         votedHorses.text = votedHorses.text + "Prefabulous: " + votes[2] + "\n";
