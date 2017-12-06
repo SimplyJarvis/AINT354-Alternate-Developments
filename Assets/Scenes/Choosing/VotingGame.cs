@@ -23,6 +23,7 @@ public class VotingGame : MonoBehaviour
     private int[] chosen = new int[4];
     private int chosenGame;
     private bool startCountdown = false;
+    private bool countdownStarted = false;
 
 
     // Use this for initialization
@@ -152,8 +153,9 @@ public class VotingGame : MonoBehaviour
             voted.RemoveFirst();
         }
 
-        if (startCountdown == true)
+        if (startCountdown == true && countdownStarted == false)
         {
+            countdownStarted = true;
             StartCoroutine("Countdown");
         }
 
