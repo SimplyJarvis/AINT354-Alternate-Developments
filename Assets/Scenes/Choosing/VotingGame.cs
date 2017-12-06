@@ -18,18 +18,19 @@ public class VotingGame : MonoBehaviour
     private int guess = 0;
     private int race = 0;
     public Text[] tallyVotes = new Text[4];
-    private int timeRemaining = 30;
+    private int timeRemaining = 15;
     public Text counting;
     private int[] chosen = new int[4];
     private int chosenGame;
+    private bool startCountdown = false;
+    private bool countdownStarted = false;
 
 
     // Use this for initialization
     void Start()
     {
         IRC = GameObject.Find("Twitch").GetComponent<TwitchIRC>();
-        IRC.messageRecievedEvent.AddListener(OnChatMsgRecieved);
-        StartCoroutine("Countdown");
+        IRC.messageRecievedEvent.AddListener(OnChatMsgRecieved);        
         PlayerPrefs.SetInt("Score", 0);
     }
 
@@ -101,6 +102,7 @@ public class VotingGame : MonoBehaviour
             {
                 maze++;
                 voted.AddLast(user);
+                startCountdown = true;
             }
         }
 
@@ -114,6 +116,7 @@ public class VotingGame : MonoBehaviour
             {
                 tank++;
                 voted.AddLast(user);
+                startCountdown = true;
             }
         }
 
@@ -127,6 +130,7 @@ public class VotingGame : MonoBehaviour
             {
                 guess++;
                 voted.AddLast(user);
+                startCountdown = true;
             }
         }
 
@@ -140,12 +144,19 @@ public class VotingGame : MonoBehaviour
             {
                 race++;
                 voted.AddLast(user);
+                startCountdown = true;
             }
         }
 
         if (voted.Count > maxMessagesVote)
         {
             voted.RemoveFirst();
+        }
+
+        if (startCountdown == true && countdownStarted == false)
+        {
+            countdownStarted = true;
+            StartCoroutine("Countdown");
         }
 
 
