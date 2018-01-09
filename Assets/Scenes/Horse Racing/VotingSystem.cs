@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using UnityEngine.AI;
 
 public class VotingSystem : MonoBehaviour {
 
@@ -17,6 +18,12 @@ public class VotingSystem : MonoBehaviour {
     public GameObject background2;
     public GameObject endObject;
     public Text endText;
+
+    public GameObject snek;
+    public GameObject glue;
+    public GameObject wunderKart;
+    public GameObject prefabulous;
+    public GameObject leThomas;
 
     private TwitchIRC IRC;
     private LinkedList<GameObject> messages = new LinkedList<GameObject>();
@@ -90,7 +97,168 @@ public class VotingSystem : MonoBehaviour {
             nameVote.AddLast(user);
             nameVoteSnek.Add(user);
         }
-
+        if(msgString.ToLower().Contains("fast"))
+        {
+            if (nameVoteSnek.Contains(user))
+            {
+                snek.GetComponent<NavMeshAgent>().speed += 0.2f;
+                if(snek.GetComponent<NavMeshAgent>().speed > 5.5f)
+                {
+                    snek.GetComponent<NavMeshAgent>().speed = 5.5f;
+                }
+            }
+            if (nameVoteTom.Contains(user))
+            {
+                leThomas.GetComponent<NavMeshAgent>().speed += 0.2f;
+                if (leThomas.GetComponent<NavMeshAgent>().speed > 5.5f)
+                {
+                    leThomas.GetComponent<NavMeshAgent>().speed = 5.5f;
+                }
+            }
+            if (nameVoteFab.Contains(user))
+            {
+                prefabulous.GetComponent<NavMeshAgent>().speed += 0.2f;
+                if (prefabulous.GetComponent<NavMeshAgent>().speed > 5.5f)
+                {
+                    prefabulous.GetComponent<NavMeshAgent>().speed = 5.5f;
+                }
+            }
+            if (nameVoteKart.Contains(user))
+            {
+                wunderKart.GetComponent<NavMeshAgent>().speed += 0.2f;
+                if (wunderKart.GetComponent<NavMeshAgent>().speed > 5.5f)
+                {
+                    wunderKart.GetComponent<NavMeshAgent>().speed = 5.5f;
+                }
+            }
+            if (nameVoteGlue.Contains(user))
+            {
+                glue.GetComponent<NavMeshAgent>().speed += 0.2f;
+                if (glue.GetComponent<NavMeshAgent>().speed > 5.5f)
+                {
+                    glue.GetComponent<NavMeshAgent>().speed = 5.5f;
+                }
+            }
+        }
+        if(msgString.ToLower().Contains("slow") & nameVote.Contains(user))
+        {
+            int chosen = Random.Range(1, 4);
+            if (nameVoteSnek.Contains(user))
+            {
+                if (chosen == 1)
+                {
+                    leThomas.GetComponent<NavMeshAgent>().speed -= 0.2f;
+                }
+                if (chosen == 2)
+                {
+                    prefabulous.GetComponent<NavMeshAgent>().speed -= 0.2f;
+                }
+                if (chosen == 3)
+                {
+                    wunderKart.GetComponent<NavMeshAgent>().speed -= 0.2f;
+                }
+                if (chosen == 4)
+                {
+                    glue.GetComponent<NavMeshAgent>().speed -= 0.2f;
+                }
+            }
+            if (nameVoteTom.Contains(user))
+            {
+                if (chosen == 1)
+                {
+                    snek.GetComponent<NavMeshAgent>().speed -= 0.2f;
+                }
+                if (chosen == 2)
+                {
+                    prefabulous.GetComponent<NavMeshAgent>().speed -= 0.2f;
+                }
+                if (chosen == 3)
+                {
+                    wunderKart.GetComponent<NavMeshAgent>().speed -= 0.2f;
+                }
+                if (chosen == 4)
+                {
+                    glue.GetComponent<NavMeshAgent>().speed -= 0.2f;
+                }
+            }
+            if (nameVoteFab.Contains(user))
+            {
+                if (chosen == 1)
+                {
+                    leThomas.GetComponent<NavMeshAgent>().speed -= 0.2f;
+                }
+                if (chosen == 2)
+                {
+                    snek.GetComponent<NavMeshAgent>().speed -= 0.2f;
+                }
+                if (chosen == 3)
+                {
+                    wunderKart.GetComponent<NavMeshAgent>().speed -= 0.2f;
+                }
+                if (chosen == 4)
+                {
+                    glue.GetComponent<NavMeshAgent>().speed -= 0.2f;
+                }
+            }
+            if (nameVoteKart.Contains(user))
+            {
+                if (chosen == 1)
+                {
+                    leThomas.GetComponent<NavMeshAgent>().speed -= 0.2f;
+                }
+                if (chosen == 2)
+                {
+                    prefabulous.GetComponent<NavMeshAgent>().speed -= 0.2f;
+                }
+                if (chosen == 3)
+                {
+                    snek.GetComponent<NavMeshAgent>().speed -= 0.2f;
+                }
+                if (chosen == 4)
+                {
+                    glue.GetComponent<NavMeshAgent>().speed -= 0.2f;
+                }
+            }
+            if (nameVoteGlue.Contains(user))
+            {
+                if (chosen == 1)
+                {
+                    leThomas.GetComponent<NavMeshAgent>().speed -= 0.2f;
+                }
+                if (chosen == 2)
+                {
+                    prefabulous.GetComponent<NavMeshAgent>().speed -= 0.2f;
+                }
+                if (chosen == 3)
+                {
+                    wunderKart.GetComponent<NavMeshAgent>().speed -= 0.2f;
+                }
+                if (chosen == 4)
+                {
+                    snek.GetComponent<NavMeshAgent>().speed -= 0.2f;
+                }
+            }
+            if (leThomas.GetComponent<NavMeshAgent>().speed < 3.5f)
+            {
+                leThomas.GetComponent<NavMeshAgent>().speed = 3.5f;
+            }
+            if (prefabulous.GetComponent<NavMeshAgent>().speed < 3.5f)
+            {
+                prefabulous.GetComponent<NavMeshAgent>().speed = 3.5f;
+            }
+            if (wunderKart.GetComponent<NavMeshAgent>().speed < 3.5f)
+            {
+                wunderKart.GetComponent<NavMeshAgent>().speed = 3.5f;
+            }
+            if (snek.GetComponent<NavMeshAgent>().speed < 3.5f)
+            {
+                snek.GetComponent<NavMeshAgent>().speed = 3.5f;
+            }
+            if (glue.GetComponent<NavMeshAgent>().speed < 3.5f)
+            {
+                glue.GetComponent<NavMeshAgent>().speed = 3.5f;
+            }
+        }
 
     }
 

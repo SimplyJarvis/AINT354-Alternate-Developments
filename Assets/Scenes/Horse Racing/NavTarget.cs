@@ -11,7 +11,7 @@ public class NavTarget : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         navTest = GetComponent<NavMeshAgent>();
-        navTest.speed = (Random.Range(4.0f, 5.5f));
+        navTest.speed = (Random.Range(3.5f, 5.5f));
 	}
 	
 	// Update is called once per frame

@@ -12,7 +12,7 @@ public class CheckPoints : MonoBehaviour {
         if (col.gameObject.tag == "Racer")
         {
             col.gameObject.GetComponent<NavTarget>().target = newPos;
-            col.gameObject.GetComponent<NavMeshAgent>().speed = Random.Range(4f, 5.5f);
+            col.gameObject.GetComponent<NavMeshAgent>().speed = Random.Range(3.5f, 5.5f);
         }
 
     }

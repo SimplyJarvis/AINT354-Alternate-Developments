@@ -72,11 +72,11 @@ public class Player : MonoBehaviour {
         }
         else if (msgString == "cw")
         {
-            Look(currentDirection.GetNextCounterclockwise());
+            Look(currentDirection.GetNextClockwise());
         }
         else if (msgString == "ccw")
         {
-            Look(currentDirection.GetNextClockwise());
+            Look(currentDirection.GetNextCounterclockwise());
         }
 
      
