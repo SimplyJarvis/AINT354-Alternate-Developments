@@ -9,14 +9,17 @@ public class TankMove : MonoBehaviour {
     private Vector3 bouncePos;
     private GameObject Tank;
     private Combat_BulletSpawn bullets;
+    private Combat_BulletSpawn sheild;
+    private bool speed;
 
-	// Use this for initialization
-	void Start () {
+    // Use this for initialization
+    void Start () {
         Tank = this.gameObject;
         originalPos = transform.position;
         newPos = originalPos;
         bullets = GetComponentInChildren<Combat_BulletSpawn>();
-	}
+        sheild = GetComponentInChildren<Combat_BulletSpawn>();
+    }
 	
 	// Update is called once per frame
 	void FixedUpdate () {
@@ -27,23 +30,51 @@ public class TankMove : MonoBehaviour {
     public void Move(string direction)
     {
         if (direction.Contains("up"))
-        {        
-             newPos = transform.position + transform.forward * 1.5f;
+        {
+            if (speed == false)
+            {
+                newPos = transform.position + transform.forward * 1.5f;
+            }
+            else
+            {
+                newPos = transform.position + transform.forward * 2f;
+            }
             bouncePos = Tank.transform.position;
         }
         else if (direction.Contains("down"))
         {
-            newPos = transform.position - transform.forward * 1.5f;
+            if (speed == false)
+            {
+                newPos = transform.position - transform.forward * 1.5f;
+            }
+            else
+            {
+                newPos = transform.position - transform.forward * 2f;
+            }            
             bouncePos = Tank.transform.position;
         }
         else if (direction.Contains("left"))
         {
-            newPos = transform.position - transform.right * 1.5f;
+            if (speed == false)
+            {
+                newPos = transform.position - transform.right * 1.5f;
+            }
+            else
+            {
+                newPos = transform.position - transform.right * 2f;
+            }            
             bouncePos = Tank.transform.position;
         }
         else if (direction.Contains("right"))
         {
-            newPos = transform.position + transform.right * 1.5f;
+            if (speed == false)
+            {
+                newPos = transform.position + transform.right * 1.5f;
+            }
+            else
+            {
+                newPos = transform.position + transform.right * 2f;
+            }            
             bouncePos = Tank.transform.position;
         }
     }
@@ -82,11 +113,21 @@ public class TankMove : MonoBehaviour {
 
     public void OnTriggerEnter(Collider collision)
     {
-        if (collision.gameObject.tag == "pUp")
+        if (collision.gameObject.tag == "pUp1")
         {
             bullets.powerUp = true;
             Destroy(collision.gameObject);
-
+        }
+        if (collision.gameObject.tag == "pUp2")
+        {
+            gameObject.name = "sheildTank";
+            sheild.sheild = true;
+            Destroy(collision.gameObject);
+        }
+        if (collision.gameObject.tag == "pUp3")
+        {
+            speed = true;
+            Destroy(collision.gameObject);
         }
     }
 

@@ -142,7 +142,7 @@ public class VotingSystem : MonoBehaviour {
         }
         if(msgString.ToLower().Contains("slow") & nameVote.Contains(user))
         {
-            int chosen = Random.Range(1, 4);
+            int chosen = Random.Range(1, 5);
             if (nameVoteSnek.Contains(user))
             {
                 if (chosen == 1)
