@@ -6,13 +6,16 @@ public class TankMove : MonoBehaviour {
 
     private Vector3 originalPos;
     private Vector3 newPos;
+    private Vector3 bouncePos;
     private GameObject Tank;
+    private Combat_BulletSpawn bullets;
 
 	// Use this for initialization
 	void Start () {
         Tank = this.gameObject;
         originalPos = transform.position;
         newPos = originalPos;
+        bullets = GetComponentInChildren<Combat_BulletSpawn>();
 	}
 	
 	// Update is called once per frame
@@ -24,20 +27,24 @@ public class TankMove : MonoBehaviour {
     public void Move(string direction)
     {
         if (direction.Contains("up"))
-        {
-            newPos = transform.position + transform.forward * 1.5f;
+        {        
+             newPos = transform.position + transform.forward * 1.5f;
+            bouncePos = Tank.transform.position;
         }
         else if (direction.Contains("down"))
         {
             newPos = transform.position - transform.forward * 1.5f;
+            bouncePos = Tank.transform.position;
         }
         else if (direction.Contains("left"))
         {
             newPos = transform.position - transform.right * 1.5f;
+            bouncePos = Tank.transform.position;
         }
         else if (direction.Contains("right"))
         {
             newPos = transform.position + transform.right * 1.5f;
+            bouncePos = Tank.transform.position;
         }
     }
      public void SlerpFunction()
@@ -49,8 +56,18 @@ public class TankMove : MonoBehaviour {
 
         if (originalPos != newPos)
         {
-            originalPos = Vector3.Lerp(originalPos, newPos, Time.deltaTime * 1f);
-            Tank.transform.position = originalPos;
+            if (newPos.z < 4.35 && newPos.z > -4.35 && newPos.x < 7.4 && newPos.x > -7.4)
+            {
+                originalPos = Vector3.Lerp(originalPos, newPos, Time.deltaTime * 1f);
+                Tank.transform.position = originalPos;
+            }
+            else
+            {
+                
+                Invoke("Bounce", 1f);
+                originalPos = Vector3.Lerp(originalPos, newPos, Time.deltaTime * 1f);
+                Tank.transform.position = originalPos;
+            }
         }
 
 
@@ -58,12 +75,17 @@ public class TankMove : MonoBehaviour {
 
     }
 
-    public void OnCollisionEnter(Collision collision)
+    private void Bounce()
     {
-        if (collision.gameObject.tag == "Wall")
+        newPos = bouncePos;
+    }
+
+    public void OnTriggerEnter(Collider collision)
+    {
+        if (collision.gameObject.tag == "pUp")
         {
-            newPos = originalPos + new Vector3(Random.Range(-7.0f, 7.0f), 1.4f, Random.Range(-5.0f, 5.0f));
-            SlerpFunction();
+            bullets.powerUp = true;
+            Destroy(collision.gameObject);
 
         }
     }
