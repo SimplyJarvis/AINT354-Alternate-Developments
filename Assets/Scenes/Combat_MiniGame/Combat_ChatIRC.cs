@@ -219,15 +219,15 @@ public class Combat_ChatIRC : MonoBehaviour {
     {
         Debug.Log("FINISHED");
         
-        for (int i = 0; i < Players.Length; i++)
-        {
-            if (Players[i] != null)
-            {
+        //for (int i = 0; i < Players.Length; i++)
+        //{
+        //    if (Players[i] != null)
+        //    {
                 countText.text = "Finish";
                 gameOverText.enabled = true;
                 Invoke("Restart", 8f);
-            }
-        }
+        //    }
+        //}
         
     }
 
