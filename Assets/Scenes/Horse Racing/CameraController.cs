@@ -8,7 +8,7 @@ public class CameraController : MonoBehaviour {
     // Use this for initialization
     void Start()
     {
-        Invoke("startRace", 10f);
+        Invoke("startRace", 20f);
         
     }
 
