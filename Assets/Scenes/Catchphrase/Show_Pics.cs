@@ -260,7 +260,7 @@ public class Show_Pics : MonoBehaviour {
                 }
             }
             chosenSquare = tooRemove[UnityEngine.Random.Range(0, tooRemove.Count)];
-            squares[chosenSquare].SetActive(false);
+            squares[chosenSquare].GetComponent<Animator>().SetBool("triggered", true);
             for (int i = 0; i < 9; i++)
             {
                 if (squareRemove[i] != -1)
