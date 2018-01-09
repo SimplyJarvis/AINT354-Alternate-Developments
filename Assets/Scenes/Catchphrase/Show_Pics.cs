@@ -41,6 +41,8 @@ public class Show_Pics : MonoBehaviour {
     private string oldWinners;
     private bool onOff = false;
 
+    private string lastUser;
+
     public TextAsset csv;
 
 
@@ -157,6 +159,7 @@ public class Show_Pics : MonoBehaviour {
         int msgIndex = msg.IndexOf("PRIVMSG #");
         string msgString = msg.Substring(msgIndex + IRC.channelName.Length + 11);
         string user = msg.Substring(1, msg.IndexOf('!') - 1);
+        
 
         //remove old messages for performance reasons.
         if (messages.Count > maxMessages)
@@ -165,47 +168,47 @@ public class Show_Pics : MonoBehaviour {
             messages.RemoveFirst();
         }
         //Polling to delete
-        if (msgString.ToLower() == "a" && squareRemove[0] != -1)
+        if (msgString.ToLower() == "a" && squareRemove[0] != -1 && lastUser != user)
         {
             squareRemove[0]++;
             revealArray[0].text = "Votes for revealing A: " + squareRemove[0].ToString();
         }
-        else if (msgString.ToLower() == "b" && squareRemove[1] != -1)
+        else if (msgString.ToLower() == "b" && squareRemove[1] != -1 && lastUser != user)
         {
             squareRemove[1]++;
             revealArray[1].text = "Votes for revealing B: " + squareRemove[1].ToString();
         }
-        else if (msgString.ToLower() == "c" && squareRemove[2] != -1)
+        else if (msgString.ToLower() == "c" && squareRemove[2] != -1 && lastUser != user)
         {
             squareRemove[2]++;
             revealArray[2].text = "Votes for revealing C: " + squareRemove[2].ToString();
         }
-        else if (msgString.ToLower() == "d" && squareRemove[3] != -1)
+        else if (msgString.ToLower() == "d" && squareRemove[3] != -1 && lastUser != user)
         {
             squareRemove[3]++;
             revealArray[3].text = "Votes for revealing D: " + squareRemove[3].ToString();
         }
-        else if (msgString.ToLower() == "e" && squareRemove[4] != -1)
+        else if (msgString.ToLower() == "e" && squareRemove[4] != -1 && lastUser != user)
         {
             squareRemove[4]++;
             revealArray[4].text = "Votes for revealing E: " + squareRemove[4].ToString();
         }
-        else if (msgString.ToLower() == "f" && squareRemove[5] != -1)
+        else if (msgString.ToLower() == "f" && squareRemove[5] != -1 && lastUser != user)
         {
             squareRemove[5]++;
             revealArray[5].text = "Votes for revealing F: " + squareRemove[5].ToString();
         }
-        else if (msgString.ToLower() == "g" && squareRemove[6] != -1)
+        else if (msgString.ToLower() == "g" && squareRemove[6] != -1 && lastUser != user)
         {
             squareRemove[6]++;
             revealArray[6].text = "Votes for revealing G: " + squareRemove[6].ToString();
         }
-        else if (msgString.ToLower() == "h" && squareRemove[7] != -1)
+        else if (msgString.ToLower() == "h" && squareRemove[7] != -1 && lastUser != user)
         {
             squareRemove[7]++;
             revealArray[7].text = "Votes for revealing H: " + squareRemove[7].ToString();
         }
-        else if (msgString.ToLower() == "i" && squareRemove[8] != -1)
+        else if (msgString.ToLower() == "i" && squareRemove[8] != -1 && lastUser != user)
         {
             squareRemove[8]++;
             revealArray[8].text = "Votes for revealing I: " + squareRemove[8].ToString();
@@ -232,10 +235,12 @@ public class Show_Pics : MonoBehaviour {
                 StartCoroutine("Winner");                
             }
         }
+        lastUser = user;
     }
 
     IEnumerator RemoveSquare()
     {
+        lastUser = "";
         Debug.Log(memes[chosenMeme].name);
         //start wait
         for (;;)
@@ -331,6 +336,7 @@ public class Show_Pics : MonoBehaviour {
     }
     IEnumerator Winner()
     {
+        lastUser = "";
         //Show winner
         StopCoroutine("RemoveSquare");
         for (int i = 0; i < 9; i++)
