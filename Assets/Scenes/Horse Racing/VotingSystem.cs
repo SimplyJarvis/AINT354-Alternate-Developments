@@ -148,18 +148,22 @@ public class VotingSystem : MonoBehaviour {
                 if (chosen == 1)
                 {
                     leThomas.GetComponent<NavMeshAgent>().speed -= 0.2f;
+                    IRC.SendMsg(user +" has slowed down Le Thomas!");
                 }
                 if (chosen == 2)
                 {
                     prefabulous.GetComponent<NavMeshAgent>().speed -= 0.2f;
+                    IRC.SendMsg(user + " has slowed down Prefabulous!");
                 }
                 if (chosen == 3)
                 {
                     wunderKart.GetComponent<NavMeshAgent>().speed -= 0.2f;
+                    IRC.SendMsg(user + " has slowed down Wunder Kart!");
                 }
                 if (chosen == 4)
                 {
                     glue.GetComponent<NavMeshAgent>().speed -= 0.2f;
+                    IRC.SendMsg(user + " has slowed down Glue!");
                 }
             }
             if (nameVoteTom.Contains(user))
@@ -167,18 +171,22 @@ public class VotingSystem : MonoBehaviour {
                 if (chosen == 1)
                 {
                     snek.GetComponent<NavMeshAgent>().speed -= 0.2f;
+                    IRC.SendMsg(user + " has slowed down Snek!");
                 }
                 if (chosen == 2)
                 {
                     prefabulous.GetComponent<NavMeshAgent>().speed -= 0.2f;
+                    IRC.SendMsg(user + " has slowed down Prefabulous!");
                 }
                 if (chosen == 3)
                 {
                     wunderKart.GetComponent<NavMeshAgent>().speed -= 0.2f;
+                    IRC.SendMsg(user + " has slowed down Wunder Kart!");
                 }
                 if (chosen == 4)
                 {
                     glue.GetComponent<NavMeshAgent>().speed -= 0.2f;
+                    IRC.SendMsg(user + " has slowed down Glue!");
                 }
             }
             if (nameVoteFab.Contains(user))
@@ -186,18 +194,22 @@ public class VotingSystem : MonoBehaviour {
                 if (chosen == 1)
                 {
                     leThomas.GetComponent<NavMeshAgent>().speed -= 0.2f;
+                    IRC.SendMsg(user + " has slowed down Le Thomas!");
                 }
                 if (chosen == 2)
                 {
                     snek.GetComponent<NavMeshAgent>().speed -= 0.2f;
+                    IRC.SendMsg(user + " has slowed down Snek!");
                 }
                 if (chosen == 3)
                 {
                     wunderKart.GetComponent<NavMeshAgent>().speed -= 0.2f;
+                    IRC.SendMsg(user + " has slowed down Wunder Kart!");
                 }
                 if (chosen == 4)
                 {
                     glue.GetComponent<NavMeshAgent>().speed -= 0.2f;
+                    IRC.SendMsg(user + " has slowed down Glue!");
                 }
             }
             if (nameVoteKart.Contains(user))
@@ -205,18 +217,22 @@ public class VotingSystem : MonoBehaviour {
                 if (chosen == 1)
                 {
                     leThomas.GetComponent<NavMeshAgent>().speed -= 0.2f;
+                    IRC.SendMsg(user + " has slowed down Le Thomas!");
                 }
                 if (chosen == 2)
                 {
                     prefabulous.GetComponent<NavMeshAgent>().speed -= 0.2f;
+                    IRC.SendMsg(user + " has slowed down Prefabulous!");
                 }
                 if (chosen == 3)
                 {
                     snek.GetComponent<NavMeshAgent>().speed -= 0.2f;
+                    IRC.SendMsg(user + " has slowed down Snek!");
                 }
                 if (chosen == 4)
                 {
                     glue.GetComponent<NavMeshAgent>().speed -= 0.2f;
+                    IRC.SendMsg(user + " has slowed down Glue!");
                 }
             }
             if (nameVoteGlue.Contains(user))
@@ -224,18 +240,22 @@ public class VotingSystem : MonoBehaviour {
                 if (chosen == 1)
                 {
                     leThomas.GetComponent<NavMeshAgent>().speed -= 0.2f;
+                    IRC.SendMsg(user + " has slowed down Le Thomas!");
                 }
                 if (chosen == 2)
                 {
                     prefabulous.GetComponent<NavMeshAgent>().speed -= 0.2f;
+                    IRC.SendMsg(user + " has slowed down Prefabulous!");
                 }
                 if (chosen == 3)
                 {
                     wunderKart.GetComponent<NavMeshAgent>().speed -= 0.2f;
+                    IRC.SendMsg(user + " has slowed down Wunder Kart!");
                 }
                 if (chosen == 4)
                 {
                     snek.GetComponent<NavMeshAgent>().speed -= 0.2f;
+                    IRC.SendMsg(user + " has slowed down Snek!");
                 }
             }
             if (leThomas.GetComponent<NavMeshAgent>().speed < 3.5f)
