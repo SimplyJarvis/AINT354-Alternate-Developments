@@ -17,10 +17,11 @@ public class WinScript : MonoBehaviour {
     {
         if (other.tag == "player")
         {
-            win.SetActive(true);
-            Instantiate(win);
+            //win.SetActive(true);
+           // Instantiate(win);
             Debug.Log("winner");
-            Invoke("Restart", 8f);
+             Invoke("Restart", 3f);
+           // Restart();
         }
     }
 
@@ -29,7 +30,7 @@ public class WinScript : MonoBehaviour {
     void Restart()
     {
         Debug.Log("scenchange");
-        SceneManager.LoadScene("ChooseGame");
+        SceneManager.LoadScene("MazeWin");
 
     }
 

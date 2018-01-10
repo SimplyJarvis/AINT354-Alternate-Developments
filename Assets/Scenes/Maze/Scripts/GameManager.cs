@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
-
+using UnityEngine.PostProcessing;
 public class GameManager : MonoBehaviour {
 
 	public Maze mazePrefab;
@@ -11,8 +11,12 @@ public class GameManager : MonoBehaviour {
 
 	private Player playerInstance;
 
+    public PostProcessingProfile bloomy;
+
 	private void Start () {
+        ResetBloomAtRuntime();
 		StartCoroutine(BeginGame());
+
 	}
 	
 	private void Update () {
@@ -29,7 +33,8 @@ public class GameManager : MonoBehaviour {
 		playerInstance = Instantiate(playerPrefab) as Player;
 		playerInstance.SetLocation(mazeInstance.GetCell(mazeInstance.RandomCoordinates));
 		Camera.main.clearFlags = CameraClearFlags.Depth;
-		Camera.main.rect = new Rect(0f, 0f, 0.5f, 0.5f);
+		Camera.main.rect = new Rect(-0.35f, 0.35f, 0.75f, 0.75f);
+        ChangeBloomAtRuntime();
 	}
 
 	private void RestartGame () {
@@ -40,4 +45,28 @@ public class GameManager : MonoBehaviour {
 		}
 		StartCoroutine(BeginGame());
 	}
+
+    void ChangeBloomAtRuntime()
+    {
+        //copy current bloom settings from the profile into a temporary variable
+        BloomModel.Settings bloomSettings = bloomy.bloom.settings;
+
+        //change the intensity in the temporary settings variable
+        bloomSettings.bloom.intensity = 32;
+
+        //set the bloom settings in the actual profile to the temp settings with the changed value
+        bloomy.bloom.settings = bloomSettings;
+    }
+
+    void ResetBloomAtRuntime()
+    {
+        //copy current bloom settings from the profile into a temporary variable
+        BloomModel.Settings bloomSettings = bloomy.bloom.settings;
+
+        //change the intensity in the temporary settings variable
+        bloomSettings.bloom.intensity = 2;
+
+        //set the bloom settings in the actual profile to the temp settings with the changed value
+        bloomy.bloom.settings = bloomSettings;
+    }
 }
