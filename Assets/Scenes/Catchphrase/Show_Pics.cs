@@ -388,6 +388,7 @@ public class Show_Pics : MonoBehaviour {
         for (int i = 0; i < 9; i++)
         {
             revealArray[i].enabled = true;
+            squares[i].GetComponent<Image>().enabled = true;
             squares[i].SetActive(true);
             squareRemove[i] = 0;
         }

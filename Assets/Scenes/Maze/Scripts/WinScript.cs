@@ -20,7 +20,7 @@ public class WinScript : MonoBehaviour {
             //win.SetActive(true);
            // Instantiate(win);
             Debug.Log("winner");
-             Invoke("Restart", 3f);
+             Invoke("Restart", 1f);
            // Restart();
         }
     }
